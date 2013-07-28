@@ -66,9 +66,10 @@ int main(void)
 		if(TIM_GetCounter(TIM3) > 60000) {
 			GPIO_SetBits(GPIOD,GPIO_Pin_15);	// Turn on blue
 		}
-		if(TIM_GetCounter(TIM3) < 15000) {
+		if(TIM_GetFlagStatus(TIM3,TIM_FLAG_Update)) {
 			// Turn all off
 			GPIO_ResetBits(GPIOD,GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
+			TIM_ClearFlag(TIM3,TIM_FLAG_Update);
 		}
 	}
 }
